@@ -9,10 +9,10 @@ const auth = async(req,res,next)=>{
         const user = await User.findOne({
             _id:decoded._id,
         })
-        if(!user){
+        /*if(!user){
             throw new Error ('unable to login, invalid credentials')
 
-        }
+        }*/
         req.user=user;
         req.token=token;
         next();

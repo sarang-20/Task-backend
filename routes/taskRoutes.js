@@ -27,25 +27,26 @@ router.post('/', auth, async (req, res) => {
 
 
 
-router.get('/',auth,async(req,res)=>{
+// router.get('/',auth,async(req,res)=>{
+//     console.log(req.user)
+//     try{
+//          const task = await Task.find({
+//             owner:req.user._id 
+            
+//          })
+//     }
+//     catch(err){
+//         res.status(500).send({error:err});
+//     }
+// });
+
+router.get('/:id',async(req,res)=>{
+     const taskid=req.params.id;
     try{
          const task = await Task.find({
-            owner:req.user._id 
-         })
-    }
-    catch(err){
-        res.status(500).send({error:err});
-    }
-});
-
-router.get('/:id',auth,async(req,res)=>{
-
-    const taskid=req.params.id;
-    try{
-         const task = await Task.find({
-            id:taskid,
-            owner:req.user._id
+            _id:taskid,
          });
+         console.log(task);
          if(!task){
             return res.status(404).json({message:"Task not"})
          }
@@ -57,7 +58,7 @@ router.get('/:id',auth,async(req,res)=>{
 });
 
 
-router.put('/:id',auth,async(req,res)=>{
+router.put('/:id',async(req,res)=>{
 
     const taskid=req.params.id;
     const updates= Object.keys(req.body)
